@@ -11,4 +11,3 @@ def relation_db(request):
             'number_car': persons_tour
         }
     )
-    

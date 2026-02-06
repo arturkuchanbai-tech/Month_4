@@ -45,4 +45,4 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Название Тура:{self.chois_toure} - Отценка:{self.marks}: Коммент:{self.text}'
+        return f'Название :{self.chois_toure} - Отценка:{self.marks}: Коммент:{self.text}'
