@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('Book.urls')),
     path('', include('prog_lang.urls')),
     path('', include('relation_db.urls')),
+    path('shop/', include('myShop.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,7 +1,15 @@
+<center>
+<button><a href="#"></a></button>
+<br><br>
 {% for i in prog_lang %}
-<a>
+
 <img src="{{ i.image.url}}" alt="" width="300" hight="400">
 <h1>{{ i.title}}</h1>
-<p><a href="/plog_lang/{{ i.id}}/">Подробнее</a></p>
+<p><a href="#""{{ i.id}}/">Подробнее</a></p>
+
+<p><a href="#""{{ i.id}}/">Удалить</a></p>
+
+<p><a href="#""{{ i.id}}/">Редоктировать</a></p>
 
 {%  endfor  %}
+</center>

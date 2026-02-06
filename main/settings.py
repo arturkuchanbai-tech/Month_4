@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Book',
     'prog_lang',
     'relation_db',
+    'myShop',
 
 ]
 
