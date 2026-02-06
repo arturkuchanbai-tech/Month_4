@@ -1,0 +1,19 @@
+{% for i in register_list %}
+    <h3>Человек: {{ i.name }}</h3>
+    <p>Тур: {{ i.tour.toure }}</p>
+
+    <p>Категории:</p>
+    {% for j in i.categories.all %}
+        <p>{{ j.name }}</p>
+    {% empty %}
+        <p>Нет категорий</p>
+    {% endfor %}
+
+    <p>Отзывы:</p>
+    {% for k in i.reviews.all %}
+        <p>Оценка: {{ k.marks }} | {{ k.text }}</p>
+    {% empty %}
+        <p>Нет отзывов</p>
+    {% endfor %}
+
+{% endfor %}

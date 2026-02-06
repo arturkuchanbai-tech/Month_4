@@ -1,0 +1,7 @@
+{% for i in prog_lang %}
+<a>
+<img src="{{ i.image.url}}" alt="" width="300" hight="400">
+<h1>{{ i.title}}</h1>
+<p><a href="/plog_lang/{{ i.id}}/">Подробнее</a></p>
+
+{%  endfor  %}

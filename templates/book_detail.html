@@ -1,0 +1,17 @@
+<!-- book/templates/book/book_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ book.title }}</title>
+</head>
+<body>
+    <h1>{{ book.title }}</h1>
+    <p><strong>Автор:</strong> {{ book.author }}</p>
+    <p><strong>Дата публикации:</strong> {{ book.published_date }}</p>
+    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+    <p><strong>Страниц:</strong> {{ book.pages }}</p>
+    <p><strong>Описание:</strong> {{ book.description }}</p>
+    <p><strong>Email издателя:</strong> {{ book.publisher_email }}</p>
+    <p><strong>Ссылка на сайт:</strong> <a href="{{ book.info_url }}">{{ book.info_url }}</a></p>
+</body>
+</html>
