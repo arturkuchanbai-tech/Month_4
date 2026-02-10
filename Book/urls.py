@@ -5,7 +5,12 @@ urlpatterns = [
     path('book/', views.my_book_view),
     path('main/', views.main),
     path('photo/', views.photo),
-    
+    path('books/', views.book_list, name='book_list'),
+    path('books/create/', views.book_create, name='book_create'),
+    path('books/update/<int:pk>/', views.book_update, name='book_update'),
+    path('books/delete/<int:pk>/', views.book_delete, name='book_delete'),
 ]
+
+
 
 

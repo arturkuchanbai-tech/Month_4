@@ -6,10 +6,19 @@
 </head>
 <body>
     <h1>Список книг</h1>
+
+
+    <p><a href="{% url 'book_create' %}">Добавить книгу</a></p>
+
     <ul>
         {% for book in books %}
             <li>
+        
                 <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a> — {{ book.author }}
+
+    
+                [<a href="{% url 'book_update' book.pk %}">Редактировать</a>]
+                [<a href="{% url 'book_delete' book.pk %}">Удалить</a>]
             </li>
         {% empty %}
             <li>Книг пока нет.</li>
