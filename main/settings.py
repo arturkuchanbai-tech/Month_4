@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'prog_lang',
     'relation_db',
     'myShop',
+    'users',
+    'captcha',
 
 ]
 
