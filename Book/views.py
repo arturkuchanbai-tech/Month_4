@@ -7,33 +7,25 @@ from django.core.paginator import Paginator
 from decouple import config
 
 def book_list(request):
-    # Получаем строку поиска из GET-параметров
     query = request.GET.get('q', '')
 
-    # Проверяем флаг скрытия секретных книг из .env
-    hide_secret = config('HIDE_SECRET', default=False, cast=bool)
-
-    # Фильтруем книги по поиску и секретности
     books = Book.objects.all()
-    if hide_secret:
-        books = books.filter(secret=False)  # поле secret должно быть в модели Book
+
     if query:
         books = books.filter(title__icontains=query)
 
-    # Пагинация — 10 книг на страницу
-    paginator = Paginator(books, 10)
+    paginator = Paginator(books, 10)  # 10 книг на страницу
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'books.html', {'page_obj': page_obj, 'query': query})
-
-
-def book_list(request):
-    books = Book.objects.all()
     return render(
         request,
-        "book/book_list.html",
-        {"books": books})
+        'book/book_list.html',
+        {
+            'page_obj': page_obj,
+            'query': query
+        }
+    )
 
 def book_create(request):
     if request.method == "POST":
@@ -88,12 +80,6 @@ def photo(request):
         return HttpResponse(978-5-389-14702-'<img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" width="400">')
 
 
-def book_list(request):
-    books = Book.objects.all()
-    return render(
-        request,
-          'book/book_list.html',
-            {'books': books})
 
 
 def book_detail(request, pk):
