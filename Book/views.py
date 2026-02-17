@@ -8,18 +8,18 @@ from decouple import config
 from . import models, forms
 
 def search_view(request):
-    # Получаем запрос из строки поиска
+    
     query = request.GET.get("s", '')
 
     if query:
-        # Фильтруем книги по названию
+        
         books = Book.objects.filter(title__icontains=query)
     else:
-        # Если ничего не введено, возвращаем пустой QuerySet
+        
         books = Book.objects.none()
 
     return render(request, 'book/book_list.html', {
-        "page_obj": books,  # чтобы совпадало с твоим шаблоном
+        "page_obj": books,  
         "query": query
     })
 
@@ -33,7 +33,7 @@ def book_list(request):
     if query:
         books = books.filter(title__icontains=query)
 
-    paginator = Paginator(books, 10)  # 10 книг на страницу
+    paginator = Paginator(books, 10)  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
