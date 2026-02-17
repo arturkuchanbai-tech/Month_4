@@ -3,6 +3,30 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
 from django.http import HttpResponse
 from .forms import BookForm
+from django.core.paginator import Paginator
+from decouple import config
+
+def book_list(request):
+    # Получаем строку поиска из GET-параметров
+    query = request.GET.get('q', '')
+
+    # Проверяем флаг скрытия секретных книг из .env
+    hide_secret = config('HIDE_SECRET', default=False, cast=bool)
+
+    # Фильтруем книги по поиску и секретности
+    books = Book.objects.all()
+    if hide_secret:
+        books = books.filter(secret=False)  # поле secret должно быть в модели Book
+    if query:
+        books = books.filter(title__icontains=query)
+
+    # Пагинация — 10 книг на страницу
+    paginator = Paginator(books, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'books.html', {'page_obj': page_obj, 'query': query})
+
 
 def book_list(request):
     books = Book.objects.all()

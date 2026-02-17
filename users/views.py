@@ -1,34 +1,54 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
-from .forms import CustomUserForm, CustomLoginForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
+from users.forms import CustomUserForm
+from django.http import HttpResponse
+
+def profile(request):
+    return render(request, "profile.html")
+
 
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('profile')
+            form.save()
+            return redirect("login")
     else:
         form = CustomUserForm()
-    return render(request, 'register.html', {'form': form})
+    
+    return render(
+        request,
+        'register.html',
+        {
+            "form": form
+        }
+    )
+
 
 def auth_login_view(request):
     if request.method == 'POST':
-        form = CustomLoginForm(data=request.POST)
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('profile')
+            return redirect('yaziki:yaizki_programmirovanie')
+            #return redirect('/prog_lang/')
     else:
-        form = CustomLoginForm()
-    return render(request, 'login.html', {'form': form})
+        form = AuthenticationForm()
+    
+    return render(
+        request,
+        'login.html',
+        {
+            "form": form
+        }
+    )
+
 
 def auth_logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('/login/')
 
-@login_required
-def profile(request):
-    return render(request, 'profile.html')
+
