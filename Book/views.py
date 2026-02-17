@@ -5,6 +5,25 @@ from django.http import HttpResponse
 from .forms import BookForm
 from django.core.paginator import Paginator
 from decouple import config
+from . import models, forms
+
+def search_view(request):
+    # Получаем запрос из строки поиска
+    query = request.GET.get("s", '')
+
+    if query:
+        # Фильтруем книги по названию
+        books = Book.objects.filter(title__icontains=query)
+    else:
+        # Если ничего не введено, возвращаем пустой QuerySet
+        books = Book.objects.none()
+
+    return render(request, 'book/book_list.html', {
+        "page_obj": books,  # чтобы совпадало с твоим шаблоном
+        "query": query
+    })
+
+
 
 def book_list(request):
     query = request.GET.get('q', '')

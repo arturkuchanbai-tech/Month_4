@@ -9,11 +9,18 @@
     <p><a href="{% url 'book_create' %}">Добавить книгу</a></p>
 
     <ul>
+
+<form action="{% url 'book_search' %}" method="get">
+    <input type="text" name="s" placeholder="Найти книгу">
+    <button type="submit">Найти</button>
+</form>
+
+
         {% for book in page_obj %}
             <li>
                 <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a> — {{ book.author }}
-                [<a href="{% url 'book_update' book.pk %}">Редактировать</a>]
-                [<a href="{% url 'book_delete' book.pk %}">Удалить</a>]
+                <a href="{% url 'book_update' book.pk %}">Редактировать</a>
+                <a href="{% url 'book_delete' book.pk %}">Удалить</a>
             </li>
         {% empty %}
             <li>Книг пока нет.</li>
