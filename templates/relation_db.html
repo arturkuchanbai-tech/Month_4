@@ -1,19 +1,20 @@
-{% for i in register_list %}
-    <h3>Человек: {{ i.name }}</h3>
-    <p>Тур: {{ i.tour.toure }}</p>
+<h1>Список зарегистрированных туров</h1>
 
-    <p>Категории:</p>
-    {% for j in i.categories.all %}
-        <p>{{ j.name }}</p>
-    {% empty %}
-        <p>Нет категорий</p>
-    {% endfor %}
-
-    <p>Отзывы:</p>
-    {% for k in i.reviews.all %}
-        <p>Оценка: {{ k.marks }} | {{ k.text }}</p>
-    {% empty %}
-        <p>Нет отзывов</p>
-    {% endfor %}
-
-{% endfor %}
+<ul>
+  {% for reg in number_car %}
+    <li>
+      {{ reg.person }} — {{ reg.tour.toure }}<br>
+      Теги: 
+      {% for tag in reg.tour.tags.all %}
+        {{ tag.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      <br>
+      Категории:
+      {% for cat in reg.tour.categories.all %}
+        {{ cat.name }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </li>
+  {% empty %}
+    <li>Нет зарегистрированных туров</li>
+  {% endfor %}
+</ul>

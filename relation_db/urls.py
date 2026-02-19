@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path('people/', views.relation_db)
+    path('people/', views.RelationDBView.as_view())
 ]

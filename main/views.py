@@ -1,64 +1,41 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from . import models, forms
-
-def update(request,id):
-    prog_lang = get_object_or_404(models.Proglang, id= id)
-    if request.method == "POST":
-        form = forms.ProgLangForm(request.POST, instance=prog_lang)
-        if form.is_valid():
-            form.save()
-            return redirect('/prog_lang/')
-    else:
-        form = forms.ProgLangForm(instance=prog_lang)
-    return render(
-        request,
-        'update_prog_lang.html',
-        {
-            'form': form,
-            'prog_lang': prog_lang
-        }
-    )
+from django.views.generic import (CreateView,UpdateView,DeleteView,DetailView,ListView)
+from django.urls import reverse_lazy
+from .models import Proglang
+from .forms import ProgLangForm
 
 
 
-
-def delate(request,id):
-    prog_lang = get_object_or_404(models.Proglang, id =id)
-    prog_lang.delate
-    return redirect('/plog_lang/')
-
-
-#create prog lang
-def creste_prog_lang_view(request):
-    if request.method == 'POST':
-        form = forms.ProgLangForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('/plog_lang/')
-    else:
-        form = forms.ProgLangForm()
-
-    return render(
-        request,
-        "create_prog_lang.html",
-        {
-            "form":form
-        }
-    )
+class ProgLangListView(ListView):
+    model = Proglang
+    template_name = 'prog_lang_list.html'
+    context_object_name = 'prog_langs'
 
 
 
+class ProgLangCreateView(CreateView):
+    model = Proglang
+    form_class = ProgLangForm
+    template_name = 'create_prog_lang.html'
+    success_url = reverse_lazy('prog_lang_list')
 
 
-#read
-def prog_lang_detail_view(request, id):
-    if request.method == 'GET':
-        prog_lang_id = models.Proglang.objects.filter(id=id)
-        return render(
-            request,
-            'prog_lang_detdil.html',
-            context={
-                'prog_id_input': prog_lang_id
-            }
-        )
 
+class ProgLangDetailView(DetailView):
+    model = Proglang
+    template_name = 'prog_lang_detail.html'
+    context_object_name = 'prog_lang'
+
+
+
+class ProgLangUpdateView(UpdateView):
+    model = Proglang
+    form_class = ProgLangForm
+    template_name = 'update_prog_lang.html'
+    success_url = reverse_lazy('prog_lang_list')
+
+
+
+class ProgLangDeleteView(DeleteView):
+    model = Proglang
+    template_name = 'prog_lang_confirm_delete.html'
+    success_url = reverse_lazy('prog_lang_list')

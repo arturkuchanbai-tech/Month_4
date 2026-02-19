@@ -1,88 +1,76 @@
-
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Book
 from django.http import HttpResponse
-from .forms import BookForm
 from django.core.paginator import Paginator
-from decouple import config
-from . import models, forms
+from .models import Book
+from .forms import BookForm
+from django.views import generic
+from django.db.models import F
 
-def search_view(request):
+class SearchView(generic.ListView):
+    template_name = 'book/book_list.html'
+    context_object_name = 'books'
+    model = Book
+
+    def get_queryset(self):
+        return self.model.objects.filter(title__icontains=self.request.GET.get('s'))
     
-    query = request.GET.get("s", '')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['s']= self.request.GET.get('s')
+        return context
 
-    if query:
+
+class BoookListView(generic.ListView):
+    template_name = 'book/book_list.html'
+    model = Book
+    context_object_name = 'books'
+    paginate_by = 2
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-id')
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         
-        books = Book.objects.filter(title__icontains=query)
-    else:
-        
-        books = Book.objects.none()
+        context['books_page'] = context['page_obj']
+        return context
 
-    return render(request, 'book/book_list.html', {
-        "page_obj": books,  
-        "query": query
-    })
+class CreateBookView(generic.CreateView):
+    template_name = 'book/book_form.html'
+    form_class = BookForm
+    success_url = '/book/'
 
 
+    def form_valid(self, form):
+        print(form.changed_data)
+        return super(CreateBookView, self).form_valid(form=form)
 
-def book_list(request):
-    query = request.GET.get('q', '')
+#UPDATE
+class UpdateBookView(generic.UpdateView):
+    template_name = 'book/book_form.html'
+    form_class = BookForm
+    model = Book
+    success_url = '/book/'
 
-    books = Book.objects.all()
+    def get_object(self, **kwargs):
+        prog_lang_id = self.kwargs.get('id')
+        return get_object_or_404(self.model, id=prog_lang_id)
+    
+    def form_valid(self, form):
+        print(form.changed_data)
+        return super(UpdateBookView, self).form_valid(form=form)
+    
 
-    if query:
-        books = books.filter(title__icontains=query)
+class DeleteBookView(generic.DeleteView):
+    template_name = 'book/confirm_delete.html'
+    success_url = '/book/'
+    context_object_name = 'book'
+    model = Book
 
-    paginator = Paginator(books, 10)  
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(
-        request,
-        'book/book_list.html',
-        {
-            'page_obj': page_obj,
-            'query': query
-        }
-    )
-
-def book_create(request):
-    if request.method == "POST":
-        form = BookForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('book_list')
-    else:
-        form = BookForm()
-    return render(
-        request,
-          "book/book_form.html",
-            {"form": form})
-
-def book_update(request, pk):
-    book = get_object_or_404(Book, id=pk)
-    if request.method == "POST":
-        form = BookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect('book_list')
-    else:
-        form = BookForm(instance=book)
-    return render(
-        request,
-          "book/book_form.html",
-            {"form": form})
-
-def book_delete(request, pk):
-    book = get_object_or_404(Book, id=pk)
-    if request.method == "POST":
-        book.delete()
-        return redirect('book_list')
-    return render(
-        request,
-          "book/book_delete.html",
-            {"book": book})
-
+    def get_object(self, **kwargs):
+        prog_lang_id = self.kwargs.get('id')
+        return get_object_or_404(self.model, id=prog_lang_id)
 
 def my_book_view(request):
     if request.method == 'GET':
@@ -100,10 +88,26 @@ def photo(request):
 
 
 
+class BookDetailView(generic.DetailView):
+    template_name = 'book/book_detail.html'
+    context_object_name = 'book'
+    pk_url_kwarg = 'id'
+    model = Book
 
-def book_detail(request, pk):
-    book = get_object_or_404(Book, pk=pk)
-    return render(
-        request,
-          'book/book_detail.html',
-            {'book': book})
+    def get_object(self, queryset = None):
+        obj = super().get_object(queryset)
+        request = self.request
+
+        
+        viewed_books = request.session.get('viewed_book', [])
+
+        if obj.pk not in viewed_books:
+            Book.objects.filter(pk=obj.pk).update(
+                views = F("views")+1
+            )
+            viewed_books.append(obj.pk)
+            request.session['viewed_lang'] = viewed_books
+
+            
+            obj.refresh_from_db()
+        return obj

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление языка программирования</title>
+</head>
+<body>
+    <h1>Подтверждение удаления</h1>
+
+    <p>Вы действительно хотите удалить язык программирования: 
+        <strong>{{ prog_lang_id.title }}</strong>?
+    </p>
+
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+        <a href="/prog_lang/">Отмена</a>
+    </form>
+</body>
+</html>

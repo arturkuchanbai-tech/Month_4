@@ -1,43 +1,38 @@
-from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
 from .models import Category, Product
 
-def shop_home(request):
-    categories = Category.objects.all()
-    return render(
-        request,
-          'categories.html',
-        {
-            'categories': categories
-        })
 
-def category_list(request):
-    categories = Category.objects.all()
-    return render(
-        request,
-          'categories.html', 
-        {
-            'categories': categories
-        })
+class ShopHomeView(ListView):
+    model = Category
+    template_name = 'categories.html'
+    context_object_name = 'categories'
 
 
-def product_list(request):
-    products = Product.objects.select_related('category')
-    return render(
-        request,
-          'products.html',
-        {
-            'products': products
-        })
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'categories.html'
+    context_object_name = 'categories'
 
 
-def category_products(request,id):
-    category = get_object_or_404(Category, id=id)
-    products = Product.objects.filter(category=category)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'products.html'
+    context_object_name = 'products'
 
-    return render(
-        request,
-          'category_products.html', 
-        {
-            'category': category,
-            'products': products,
-        })
+    def get_queryset(self):
+        return Product.objects.select_related('category')
+    
+class CategoryProductsView(ListView):
+    model = Product
+    template_name = 'category_products.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
+        return Product.objects.filter(category=self.category)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        return context

@@ -1,7 +1,7 @@
 from django import forms
-from .models import ProgLang
+from .models import Proglang
 
 class ProgLangForm(forms.ModelForm):
     class Meta:
-        model = ProgLang
+        model = Proglang
         fields = '__all__'

@@ -9,11 +9,10 @@
     <p><a href="{% url 'book_create' %}">Добавить книгу</a></p>
 
     <ul>
-
 <form action="{% url 'book_search' %}" method="get">
     <input type="text" name="s" placeholder="Найти книгу">
     <button type="submit">Найти</button>
-</form>
+</form> 
 
 
         {% for book in page_obj %}

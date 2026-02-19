@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Proglang
+from .models import ProgLang
 
-admin.site.register(Proglang)
+admin.site.register(ProgLang)
 
