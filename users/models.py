@@ -1,5 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
 from django.contrib.auth.models import AbstractUser, Group, Permission
 
 GENDER = (
@@ -36,7 +35,7 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
-=======
+
 from django.contrib.auth.models import User
 
 
@@ -52,4 +51,3 @@ class CustomUser(User):
 
     def __str__(self):
         return self.username
->>>>>>> 88e1fbe6 (Классные работы)

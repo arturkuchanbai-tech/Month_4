@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-<<<<<<< HEAD
 app_name='yaziki'
 urlpatterns = [
     path('prog_lang/', views.ProgLangListView.as_view(), name='yaizki_programmirovanie'),
@@ -12,7 +11,6 @@ urlpatterns = [
 
 
     path('prog_lang/search/', views.SearchView.as_view(), name='search_prog_lang')]
-=======
 app_name = 'yaziki'
 
 urlpatterns = [
@@ -26,4 +24,3 @@ urlpatterns = [
 
     path('create_prog_lang/', views.create_prog_lang_view, name='sozdat_blog'),
 ]
->>>>>>> 88e1fbe6 (Классные работы)

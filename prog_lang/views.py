@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from . import models, forms
 from django.core.paginator import Paginator
-<<<<<<< HEAD
+
 from django.db.models import F
 from django.views import generic
 
@@ -11,25 +11,21 @@ from django.views import generic
 #search
 class SearchView(generic.ListView):
     template_name = 'prog_lang/prog_languages.html'
-=======
 from django.db.models import F 
 from django.views import generic
 #search
 
 class Search(generic.ListView):
     template_name = 'prog_languages.html'
->>>>>>> 88e1fbe6 (Классные работы)
     context_object_name = 'prog_lang'
     model = models.ProgLang
 
     def get_queryset(self):
-<<<<<<< HEAD
         return self.model.objects.filter(title__icontains=self.request.GET.get('s'))
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['s']= self.request.GET.get('s')
-=======
         query = self.request.GET.get('s')
         if query:
             return self.model.objects.filter(title__icontains=query)
@@ -38,14 +34,13 @@ class Search(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['s'] = self.request.GET.get('s')
->>>>>>> 88e1fbe6 (Классные работы)
         return context
 
 
 
 
 
-<<<<<<< HEAD
+
 
 
 #UPDATE
@@ -66,7 +61,6 @@ class UpdateProgLangView(generic.UpdateView):
         
 
 
-=======
 class Update(generic.UpdateView):
     template_name = 'update_prog_lang.html'
     form_class = forms.ProgLangForm
@@ -102,12 +96,10 @@ class Update(generic.UpdateView):
 #         }
     
 
->>>>>>> 88e1fbe6 (Классные работы)
-
 
 
 #DELETE PROG LANG
-<<<<<<< HEAD
+
 class DeleteProgLangView(generic.DeleteView):
     template_name = 'prog_lang/confirm_delete.html'
     success_url = '/prog_lang/'
@@ -118,19 +110,17 @@ class DeleteProgLangView(generic.DeleteView):
         prog_lang_id = self.kwargs.get('id')
         return get_object_or_404(self.model, id=prog_lang_id)
 
-=======
 def delete_prog_lang_view(request, id):
     prog_lang_id = get_object_or_404(models.ProgLang, id=id)
     prog_lang_id.delete()
     return redirect('/prog_lang/')
->>>>>>> 88e1fbe6 (Классные работы)
+
 
 
 
 
 
 #CREATE PROG LANG
-<<<<<<< HEAD
 class CreateProgLangView(generic.CreateView):
     template_name = 'prog_lang/create_prog_lang.html'
     form_class = forms.ProgLangForm
@@ -143,7 +133,6 @@ class CreateProgLangView(generic.CreateView):
 
 
 
-=======
 def create_prog_lang_view(request):
     if request.method == 'POST':
         form = forms.ProgLangForm(request.POST, request.FILES)
@@ -160,14 +149,12 @@ def create_prog_lang_view(request):
             "form": form
         }
     )
->>>>>>> 88e1fbe6 (Классные работы)
 
 
 
 
 #READ
 
-<<<<<<< HEAD
 class ProgLangDetailView(generic.DetailView):
     template_name = 'prog_lang/prog_lang_detail.html'
     context_object_name = 'prog_id'
@@ -212,7 +199,6 @@ class ProgLangListView(generic.ListView):
         return context
 
    
-=======
 def prog_lang_detail_view(request, id):
     if request.method == 'GET':
         prog_lang_id = get_object_or_404(models.ProgLang, id=id)
@@ -240,4 +226,3 @@ def prog_lang_list_view(request):
                 "prog_lang": prog_lang
             }
         )
->>>>>>> 88e1fbe6 (Классные работы)

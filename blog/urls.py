@@ -6,3 +6,4 @@ urlpatterns = [
     path('name/', views.name),
     path('photo/', views.photo) ,
 ]
+

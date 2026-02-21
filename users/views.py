@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
@@ -35,7 +34,6 @@ class CustomLoginView(LoginView):
 # LOGOUT
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy("login")
-=======
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -55,6 +53,8 @@ def registetr_view(request):
         'register.html', 
         {'form': form})
 
+
+
 def auth_login_view(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
@@ -72,4 +72,3 @@ def auth_login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/login/')
->>>>>>> 88e1fbe6 (Классные работы)

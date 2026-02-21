@@ -1,6 +1,5 @@
 from django.db import models
 
-<<<<<<< HEAD
 class ProgLang(models.Model):
     title = models.CharField(max_length=100, verbose_name='Укажите язык программирования')
     description = models.TextField(verbose_name='Укажите описание языка')
@@ -16,7 +15,7 @@ class ProgLang(models.Model):
     class Meta:
         verbose_name = 'язык программирования'
         verbose_name_plural ='языки программирования'
-=======
+
 created_date_lang = models.PositiveIntegerField(
     verbose_name='укажите год создания языка',
     blank=True,
@@ -50,4 +49,4 @@ class ProgLang(models.Model):
     class Meta:
         verbose_name = 'язык программирования'
         verbose_name_plural = 'языки программирования'
->>>>>>> 88e1fbe6 (Классные работы)
+

@@ -15,3 +15,4 @@ def name(request):
 def photo(request):
     if request.method == 'GET':
         return HttpResponse('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTisBhbjzS_pcpcNSl2TJXmgi0jUeME-bYhIA&s">')
+    
