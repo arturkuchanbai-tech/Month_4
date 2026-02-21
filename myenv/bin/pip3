@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/artur/Desktop/home_work_1/myenv/bin/python3
+=======
+#!/home/artur/Desktop/geeks61-1.kg/myenv/bin/python3
+>>>>>>> 88e1fbe6 (Классные работы)
 # -*- coding: utf-8 -*-
 import re
 import sys

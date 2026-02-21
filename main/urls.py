@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 URL configuration for main project.
 
@@ -14,6 +15,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+=======
+>>>>>>> 88e1fbe6 (Классные работы)
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -22,12 +25,20 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
 
     path('', include('myShop.urls')),  
     path('', include('Book.urls')),
+=======
+    path('', include('blog.urls')),
+>>>>>>> 88e1fbe6 (Классные работы)
     path('', include('prog_lang.urls')),
     path('', include('relation_db.urls')),
     path('', include('users.urls')),
 ]
 
+<<<<<<< HEAD
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+>>>>>>> 88e1fbe6 (Классные работы)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 Django settings for main project.
 
@@ -13,6 +14,12 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+=======
+from dotenv import load_dotenv
+import os
+from pathlib import Path
+
+>>>>>>> 88e1fbe6 (Классные работы)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,8 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 SECRET_KEY = os.getenv('VASYA')
 # SECURITY WARNING: don't ruSECRET_KEY = 'django-insecure-!qjwy94+q_7b2dy1whfsp2r#yd2we+zn)))graxvq1luaf&q6e'n with debug turned on in production!
+=======
+SECRET_KEY =os.getenv('VASYA')
+# SECURITY WARNING: don't run with debug turned on in production!
+>>>>>>> 88e1fbe6 (Классные работы)
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -38,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'Book',
     'prog_lang',
     'relation_db',
@@ -45,6 +58,12 @@ INSTALLED_APPS = [
     'users',
     'captcha',
 
+=======
+    'blog',
+    'relation_db',
+    'users',
+    'prog_lang',
+>>>>>>> 88e1fbe6 (Классные работы)
 ]
 
 MIDDLEWARE = [
@@ -62,7 +81,11 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [BASE_DIR / "templates"],
+=======
+        'DIRS': [ BASE_DIR / "templates"],
+>>>>>>> 88e1fbe6 (Классные работы)
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,5 +149,8 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 88e1fbe6 (Классные работы)

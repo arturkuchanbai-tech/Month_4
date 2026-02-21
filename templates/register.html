@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>Регистрация</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -5,3 +6,20 @@
     <button type="submit">Зарегистрироваться</button>
 </form>
 <a href="{% url 'login' %}">Уже есть аккаунт?</a>
+=======
+<center>
+    <h1>Регистрация</h1>
+
+    <form  method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Регистрация</button>
+
+
+    </form>
+    <a href ='/register/'>нет акаунта</a>
+</center>
+>>>>>>> 88e1fbe6 (Классные работы)

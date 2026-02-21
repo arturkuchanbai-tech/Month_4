@@ -2,10 +2,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+<<<<<<< HEAD
     path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('logout/', views.CustomLogoutView.as_view(), name='logout'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
 
 
+=======
+    path('register/', views.registetr_view),
+    path('', views.auth_login_view, name='login'),
+    path('logout/', views.auth_login_view)
+>>>>>>> 88e1fbe6 (Классные работы)
 ]

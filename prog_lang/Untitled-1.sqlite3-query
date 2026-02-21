@@ -1,0 +1,7 @@
+-- database: /home/artur/Desktop/geeks61-1.kg/db.sqlite3
+
+SELECT * FROM 
+CREATE TABLE prog_lang (
+    id INTEGER PRIMARY KEY,
+    name TEXT
+);
